@@ -6,7 +6,7 @@ const { BaseScene, Stage } = Scenes
 const { enter, leave } = Stage
 const stage = new Stage()
 const rateLimit = require('telegraf-ratelimit')
-var bot_token = '7119219368:AAGgwH5XSg-U1DFsqg9EcQa4k349jyKoeQQ'; //YOUR BOT TOKEN HERE
+var bot_token = '1908820064:AAGDKdBJM32E0lbRJ2iDfEFMst67-SjKnRI'; //YOUR BOT TOKEN HERE
 const bot = new Telegraf(bot_token);
 let db;
 const balance = new BaseScene('balance')
@@ -67,15 +67,13 @@ const buttonsLimit = {
 bot.use(session())
 bot.use(stage.middleware())
 //CONNECT TO MONGO
-mongo.connect('mongodb+srv://dbbot:anand123@cluster0.ubmxhuq.mongodb.net/Botdb?retryWrites=true&w=majority&appName=Cluster0', { useUnifiedTopology: true }, (err, client) => {
-    if (err) {
-        console.log(err);
-    }
-    db = client.db('Ta_Free_Cashback_Bot');
-    bot.telegram.deleteWebhook().then(success => {
-        success && console.log('🤖 Bot Has Been SuccessFully Registered')
-        bot.launch();
-    })
+const mongoose = require("mongoose");
+mongoose.connect("mongodb+srv://dbbot:anand123@cluster0.ubmxhuq.mongodb.net/EarnCaash_Bot?retryWrites=true&w=majority").then(console.log("db connected"));
+
+db = mongoose.connection;
+bot.telegram.deleteWebhook().then(success => {
+    success && console.log('🤖 Bot Has Been SuccessFully Registered')
+    bot.launch();
 })
 
 //START WITH INVITE LINK
